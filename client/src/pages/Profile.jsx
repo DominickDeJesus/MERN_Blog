@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Container, Image, Button } from 'react-bootstrap';
-import Nav from '../components/Nav';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -62,9 +61,6 @@ const Profile = ({ history }) => {
 
   return (
     <Container>
-      <div>
-        <Nav cross="/dashboard" />
-      </div>
       <div className="profile-page">
         <div className="profile">
           <div>

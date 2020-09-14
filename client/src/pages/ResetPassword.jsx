@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
-import Nav from '../components/Nav';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState(null);
@@ -19,7 +18,6 @@ const ResetPassword = () => {
 
   return (
     <Container>
-      <Nav cross="/" />
       <div className="reset">
         <div>
           <h2>Reset Password</h2>

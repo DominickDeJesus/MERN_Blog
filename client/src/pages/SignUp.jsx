@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Nav from '../components/Nav';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import swal from 'sweetalert';
@@ -30,7 +29,6 @@ const SignUp = ({ history }) => {
   };
   return (
     <Container>
-      <Nav cross="/" />
       <div className="signUp">
         <div>
           <h6>
@@ -39,12 +37,7 @@ const SignUp = ({ history }) => {
           </h6>
           <p>Don't worry, your information is safe with us</p>
         </div>
-        <div className="ilustration">
-          <Image
-            className="info-pic"
-            src={require('../components/images/profile.png')}
-          />
-        </div>
+        <div className="ilustration"></div>
         <Form onSubmit={handleSubmit}>
           <div>
             <Form.Label className="text">Name:</Form.Label>

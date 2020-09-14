@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
-import Nav from '../components/Nav';
 
 const UpdatePassword = ({ history }) => {
   const [password, setPassword] = useState(null);
@@ -30,7 +29,6 @@ const UpdatePassword = ({ history }) => {
   };
   return (
     <Container>
-      <Nav cross="/" />
       <div className="reset">
         <div>
           <h2>Update Password</h2>

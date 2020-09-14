@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "alert": "^5.0.5",
     "bootstrap": "^4.5.2",
     "little-state-machine": "^3.1.1",
     "moment": "^2.27.0",
@@ -13,8 +14,10 @@
     "react-cool-img": "^1.2.3",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.5.3",
+    "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

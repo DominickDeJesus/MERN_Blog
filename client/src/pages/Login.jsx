@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Nav from '../components/Nav';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import { useState } from 'react';
@@ -33,8 +32,6 @@ const Login = ({ history }) => {
 
   return (
     <Container>
-      <Nav cross="/" />
-
       <div className="login">
         <div>
           <h1>Login</h1>
@@ -70,12 +67,6 @@ const Login = ({ history }) => {
           </div>
           <div>
             <Form.Check type="checkbox" label="Remember Me" />
-          </div>
-          <div className="ilustration">
-            <Image
-              className="info-pic"
-              src={require('../components/images/login.png')}
-            />
           </div>
           <div className="info-btn-flex">
             <Button variant="flat" className="info-btn" type="submit">
