@@ -1,62 +1,53 @@
 const router = require('express').Router(),
   mongoose = require('mongoose'),
-  Goal = require('../../db/models/goal'),
+  Entry = require('../../db/models/entry'),
   cloudinary = require('cloudinary').v2,
   moment = require('moment');
 
 // ***********************************************//
 // Create a goal
 // ***********************************************//
-router.post('/api/goals', async (req, res) => {
-  const {
-    description,
-    dueDate,
-    completed,
-    milestones,
-    category,
-    bonus
-  } = req.body;
+router.post('/api/entries', async (req, res) => {
+  const { content, title, comments, public } = req.body;
   try {
-    const goal = new Goal({
-      description,
-      dueDate,
-      completed,
-      milestones,
-      category,
-      bonus,
+    const entry = new Entry({
+      content,
+      title,
+      comments,
+      public,
       owner: req.user._id
     });
-    await goal.save();
-    res.status(201).json(goal);
+    await entry.save();
+    res.status(201).json(entry);
   } catch (error) {
     res.status(400).json({ error: error.toString() });
   }
 });
 
 // ***********************************************//
-// Fetch a goal by id
+// Fetch a entry by id
 // ***********************************************//
-router.get('/api/goals/:id', async (req, res) => {
+router.get('/api/entries/:id', async (req, res) => {
   try {
     const _id = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(_id))
-      return res.status(400).json({ error: 'not a valid goal id' });
-    const goal = await Goal.findOne({ _id, owner: req.user._id });
-    if (!goal) return res.sendStatus(404);
-    res.json(goal);
+      return res.status(400).json({ error: 'not a valid entry id' });
+    const entry = await Entry.findOne({ _id, owner: req.user._id });
+    if (!entry) return res.sendStatus(404);
+    res.json(entry);
   } catch (error) {
     res.status(400).json({ error: error.toString() });
   }
 });
 
 // ***********************************************//
-// Get all goals
-// /goals?completed=true
-// /goals?limit=10&skip=10
-// /goals?sortBy=createdAt:asc
-// /goals?sortBy=dueDate:desc
+// Get all entries
+// /entries?completed=true
+// /entries?limit=10&skip=10
+// /entries?sortBy=createdAt:asc
+// /entries?sortBy=dueDate:desc
 // ***********************************************//
-router.get('/api/goals', async (req, res) => {
+router.get('/api/entries', async (req, res) => {
   try {
     const match = {},
       sort = {};
@@ -68,15 +59,9 @@ router.get('/api/goals', async (req, res) => {
       const parts = req.query.sortBy.split(':');
       sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
     }
-    const today = moment().startOf('day');
-
-    await Goal.updateMany(
-      { dueDate: { $lte: moment(today).toDate() } },
-      { completed: true }
-    );
     await req.user
       .populate({
-        path: 'goals',
+        path: 'entries',
         match,
         options: {
           limit: parseInt(req.query.limit),
@@ -85,62 +70,55 @@ router.get('/api/goals', async (req, res) => {
         }
       })
       .execPopulate();
-    res.json(req.user.goals);
+    res.json(req.user.entries);
   } catch (error) {
     res.status(400).json({ error: error.toString() });
   }
 });
 
 // ***********************************************//
-// Delete a goal
+// Delete a entry
 // ***********************************************//
-router.delete('/api/goals/:id', async (req, res) => {
+router.delete('/api/entries/:id', async (req, res) => {
   try {
-    const goal = await Goal.findOneAndDelete({
+    const entry = await Entry.findOneAndDelete({
       _id: req.params.id,
       owner: req.user._id
     });
-    if (!goal) throw new Error('goal not found');
-    res.json(goal);
+    if (!entry) throw new Error('entry not found');
+    res.json(entry);
   } catch (error) {
     res.status(404).json({ error: error.toString() });
   }
 });
 
 // ***********************************************//
-// Update a goal
+// Update a entry
 // ***********************************************//
-router.patch('/api/goals/:id', async (req, res) => {
+router.patch('/api/entries/:id', async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = [
-    'description',
-    'completed',
-    'dueDate',
-    'milestones',
-    'category',
-    'dailyTask',
-    'bonus',
-    'reflected',
-    'reflections'
-  ];
+  const allowedUpdates = ['title', 'content', 'public', 'comments'];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
   if (!isValidOperation)
     return res.status(400).send({ error: 'Invalid updates!' });
   try {
-    const goal = await Goal.findOne({
+    const entry = await Entry.findOne({
       _id: req.params.id,
       owner: req.user._id
     });
-    if (!goal) return res.status(404).json({ error: 'goal not found' });
-    updates.forEach((update) => (goal[update] = req.body[update]));
-    await goal.save();
-    res.json(goal);
+    if (!entry) return res.status(404).json({ error: 'entry not found' });
+    updates.forEach((update) => (entry[update] = req.body[update]));
+    await entry.save();
+    res.json(entry);
   } catch (e) {
     res.status(400).json({ error: e.toString() });
   }
 });
+
+// ***********************************************//// ***********************************************//// ***********************************************//
+// ***********************************************//
 
 // ***********************************************//
 // Delete a milestone milestoneid&goalid

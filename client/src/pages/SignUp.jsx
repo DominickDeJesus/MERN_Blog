@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Image from 'react-bootstrap/Image';
 
 const SignUp = ({ history }) => {
   const [formData, setFormData] = useState(null);

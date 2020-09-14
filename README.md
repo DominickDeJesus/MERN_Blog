@@ -4,6 +4,19 @@
 
 StoryLine is a web app built on the MERN stack to keep track of your goals and mark progress. You use it by creating an account and making a goal with set milestones. With each day you can check off your daily tasks and reflect on that days progress. When th due date is passed the goal will be marked completed.
 
+Using the MERN stack, create a blog application with the following features:
+
+- As a writer, I'd like to be able to login into the system so I can have access to my blog posts.
+- As a writer, I'd like to be able to logout of the system so other people won't have access to my blog posts using a public terminal.
+- As a writer, I'd like to be able to publish blog entries.
+- As a writer, I'd like to be able to edit my existing blog entries.
+- As a writer, I'd like to be able to delete one of my existing blog entries.
+- As a writer, I'd like to be able to log in and out of my blog so that I can edit and delete my own blog entries.
+- As a reader, I'd like to be able to view all the entries of a blog, regardless of whether I am logged in, so that I may easily access a writer's content.
+- As a reader, I'd like to be able to comment on all the entires of a blog, regardless of whether I am logged in, so that I can spam entries that I don't like with comments, and pick fights with other users.
+- As a reader, I'd like for the app to have simple, visually appealing styling so that I have an enjoyable experience reading.
+  Please submit the link to your GitHub repo for this assessment to us here by 5PM on Thursday.
+
 This is a final project for Wyntank and was built for the purpose of education. Below is a list of techonologies used to build the application:
 
 - **MongoDB**
