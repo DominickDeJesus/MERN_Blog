@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
-import Home from './pages/Dashboard';
+import Home from './pages/Home';
 import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
 import UpdatePassword from './pages/UpdatePassword';
+import Dashboard from './pages/Dashboard';
 
 const App = () => {
   return (

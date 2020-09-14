@@ -25,6 +25,9 @@ const entrySchema = new mongoose.Schema(
         lastUpdated: {
           type: Date
         },
+        name: {
+          type: String
+        },
         content: {
           type: String,
           required: true

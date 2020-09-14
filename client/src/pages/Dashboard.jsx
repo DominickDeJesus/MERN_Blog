@@ -1,8 +1,7 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
 
 const Dashboard = () => {
-  return <div>Hello World</div>;
+  return <div></div>;
 };
 
 export default Dashboard;
