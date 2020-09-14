@@ -13,6 +13,7 @@ const CommentSection = ({ comments }) => {
   };
   const handleSubmit = async () => {
     try {
+      setComment({ ...comment, name: currentUser ? currentUser : 'Anonymous' });
       const response = await axios.post('/api/CHANHETHIS', comment);
       console.log(response);
     } catch (error) {

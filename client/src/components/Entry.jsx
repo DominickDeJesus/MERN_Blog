@@ -5,7 +5,7 @@ import { AppContext } from '../context/AppContext';
 
 const Entry = ({ entry }) => {
   const [showComments, setShowComments] = useState(false);
-  const { currentUser } = useContext(AppContext);
+
   return (
     <Card bg="">
       <Card.Body>
