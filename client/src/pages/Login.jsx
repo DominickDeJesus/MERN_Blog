@@ -8,7 +8,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useContext } from 'react';
 import swal from 'sweetalert';
-import Image from 'react-bootstrap/Image';
 
 const Login = ({ history }) => {
   const [formData, setFormData] = useState(null);

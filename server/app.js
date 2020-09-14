@@ -4,7 +4,7 @@ const express = require('express'),
   cookieParser = require('cookie-parser'),
   passport = require('./middleware/authentication/'),
   openRoutes = require('./routes/open'),
-  goalRoutes = require('./routes/secure/goals'),
+  entryRoutes = require('./routes/secure/entries'),
   userRoutes = require('./routes/secure/users'),
   fileUpload = require('express-fileupload');
 
@@ -38,7 +38,7 @@ app.use(
 );
 
 app.use(userRoutes);
-app.use(goalRoutes);
+app.use(entryRoutes);
 
 // Handle React routing, return all requests to React app
 if (process.env.NODE_ENV === 'production') {
