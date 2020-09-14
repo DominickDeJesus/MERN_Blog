@@ -1,7 +1,8 @@
 const router = require('express').Router(),
   { sendWelcomeEmail, forgotPasswordEmail } = require('../../emails/'),
   jwt = require('jsonwebtoken'),
-  User = require('../../db/models/user');
+  User = require('../../db/models/user'),
+  Entry = require('../../db/models/entry');
 
 // **********************************************//
 // Create a user
@@ -94,6 +95,33 @@ router.get('/api/password/:token', (req, res) => {
     res.redirect(process.env.URL + '/update-password');
   } catch (error) {
     res.status(401).json({ error: error.toString() });
+  }
+});
+
+// ***********************************************//
+// Get all entries
+// /entries?completed=true
+// /entries?limit=10&skip=10
+// /entries?sortBy=createdAt:asc
+// /entries?sortBy=dueDate:desc
+// ***********************************************//
+router.get('/api/entries', async (req, res) => {
+  try {
+    const match = {},
+      sort = {};
+
+    if (req.query.completed) {
+      match.completed = req.query.completed === 'true';
+    }
+    if (req.query.sortBy) {
+      const parts = req.query.sortBy.split(':');
+      sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
+    }
+    const entries = await Entry.find({ public: true });
+
+    res.json(entries);
+  } catch (error) {
+    res.status(400).json({ error: error.toString() });
   }
 });
 
