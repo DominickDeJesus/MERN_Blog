@@ -56,7 +56,7 @@ const Navigation = () => {
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              history.push('/addPost');
+              history.push('/AddPost');
             }}
           >
             Add Post
