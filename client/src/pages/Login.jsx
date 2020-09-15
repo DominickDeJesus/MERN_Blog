@@ -68,7 +68,7 @@ const Login = ({ history }) => {
             <Form.Check type="checkbox" label="Remember Me" />
           </div>
           <div className="info-btn-flex">
-            <Button variant="flat" className="info-btn" type="submit">
+            <Button className="info-btn" type="submit">
               Login
             </Button>
           </div>

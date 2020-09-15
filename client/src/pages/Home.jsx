@@ -20,11 +20,13 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <Container>
-      {entries?.map((post) => {
-        return <Entry key={post._id} entry={post} />;
-      })}
-    </Container>
+    <>
+      <Container>
+        {entries?.map((post) => {
+          return <Entry key={post._id} entry={post} />;
+        })}
+      </Container>
+    </>
   );
 };
 
