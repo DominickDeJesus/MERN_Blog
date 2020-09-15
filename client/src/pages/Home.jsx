@@ -23,7 +23,7 @@ const Dashboard = () => {
     <>
       <Container>
         {entries?.map((post) => {
-          return <Entry key={post._id} entry={post} />;
+          return <Entry key={post._id} entry={post} canEdit={false} />;
         })}
       </Container>
     </>

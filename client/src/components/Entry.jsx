@@ -5,7 +5,7 @@ import { AppContext } from '../context/AppContext';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-const Entry = ({ entry }) => {
+const Entry = ({ entry, canEdit }) => {
   const [showComments, setShowComments] = useState(false);
   const { currentUser, setReloadEntries } = useContext(AppContext);
   const [currentEntry, setCurrentEntry] = useState(entry);
@@ -27,10 +27,12 @@ const Entry = ({ entry }) => {
       <Card.Body>
         <div className="d-flex">
           <Card.Title className="mr-auto">{currentEntry?.title}</Card.Title>
-          <DropdownButton variant="flat" title="">
-            <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
-            <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
-          </DropdownButton>
+          {canEdit && (
+            <DropdownButton variant="flat" title="">
+              <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
+              <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
+            </DropdownButton>
+          )}
         </div>
         <Card.Subtitle className="mb-2 text-muted">
           {currentEntry?.authorName}
