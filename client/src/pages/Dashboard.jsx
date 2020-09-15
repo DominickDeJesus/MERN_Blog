@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import Entry from '../components/Entry';
+import { AppContext } from '../context/AppContext';
 
 const Dashboard = () => {
   const [entries, setEntries] = useState(null);
-
+  const { reloadEntries, setReloadEntries } = useContext(AppContext);
   useEffect(() => {
     const getEntries = async () => {
       try {
@@ -13,12 +14,13 @@ const Dashboard = () => {
           withCredentials: true
         });
         setEntries(response.data);
+        setReloadEntries(false);
       } catch (error) {
         console.log(error);
       }
     };
     getEntries();
-  }, []);
+  }, [reloadEntries]);
 
   return (
     <>

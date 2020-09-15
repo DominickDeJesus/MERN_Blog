@@ -9,19 +9,19 @@ const AppContextProvider = ({ children }) => {
   const [currentMilestone, setCurrentMilestone] = useState(null);
   const [currentGoal, setCurrentGoal] = useState(null);
   const [formData, setFormData] = useState({});
-  const [reloadTasks, setReloadTasks] = useState(true);
+  const [reloadEntries, setReloadEntries] = useState(true);
   const [currentReflection, setCurrentReflection] = useState(null);
   const user = sessionStorage.getItem('user');
 
   const updateDailyTask = (goalId, taskUpdate) => {
-    axios
-      .patch(`/api/goals/${goalId}`, taskUpdate, {
-        withCredentials: true
-      })
-      .then((resp) => {
-        setReloadTasks(true);
-      })
-      .catch((error) => console.log(error.toString()));
+    //   axios
+    //     .patch(`/api/goals/${goalId}`, taskUpdate, {
+    //       withCredentials: true
+    //     })
+    //     .then((resp) => {
+    //       setReloadTasks(true);
+    //     })
+    //     .catch((error) => console.log(error.toString()));
   };
 
   useEffect(() => {
@@ -47,8 +47,8 @@ const AppContextProvider = ({ children }) => {
         setCurrentMilestone,
         currentGoal,
         setCurrentGoal,
-        reloadTasks,
-        setReloadTasks,
+        reloadEntries,
+        setReloadEntries,
         updateDailyTask,
         currentReflection,
         setCurrentReflection

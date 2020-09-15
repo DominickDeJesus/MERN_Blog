@@ -1,18 +1,39 @@
 import React, { useState, useContext } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import CommentSection from './CommentSection';
 import { AppContext } from '../context/AppContext';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const Entry = ({ entry }) => {
   const [showComments, setShowComments] = useState(false);
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, setReloadEntries } = useContext(AppContext);
+  const [currentEntry, setCurrentEntry] = useState(entry);
+  const history = useHistory();
 
+  const handleDelete = async () => {
+    try {
+      const resp = await axios.delete(`/api/entries/${entry._id}`, {
+        withCredentials: true
+      });
+      setReloadEntries(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleEdit = () => {};
   return (
     <Card bg="" className="my-3">
       <Card.Body>
-        <Card.Title>{entry.title}</Card.Title>
+        <div className="d-flex">
+          <Card.Title className="mr-auto">{currentEntry?.title}</Card.Title>
+          <DropdownButton variant="flat" title="">
+            <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
+            <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
+          </DropdownButton>
+        </div>
         <Card.Subtitle className="mb-2 text-muted">
-          {entry.authorName}
+          {currentEntry?.authorName}
         </Card.Subtitle>
         <Card.Text>{entry.content}</Card.Text>
         <Button
@@ -24,7 +45,10 @@ const Entry = ({ entry }) => {
           Comments
         </Button>
         {showComments && (
-          <CommentSection comments={entry.comments} id={entry._id} />
+          <CommentSection
+            comments={currentEntry?.comments}
+            id={currentEntry?._id}
+          />
         )}
       </Card.Body>
     </Card>
