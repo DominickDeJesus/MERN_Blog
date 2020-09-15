@@ -1,16 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Button, Form } from 'react-bootstrap';
 import { AppContext } from '../context/AppContext';
-import { Button, Form } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
 const AddPost = ({ history }) => {
   const { currentReflection } = useContext(AppContext);
   const [isPublic, setIsPublic] = useState(false);
-  const [post, setPost] = useState(currentReflection);
+  const [post, setPost] = useState(null);
   const [image, setImage] = useState(currentReflection?.image);
   const [preview, setPreview] = useState(null);
+  const { id } = useParams();
+  const [patchMode, setPatchMode] = useState(false);
 
   const handleChange = (event) => {
     if (event.target.name === 'image') {
@@ -21,6 +23,32 @@ const AddPost = ({ history }) => {
       setPost({ ...post, [event.target.name]: event.target.value });
     }
   };
+
+  useEffect(() => {
+    const getPost = async () => {
+      if (id) {
+        try {
+          const resp = await axios.get(`/api/entries/${id}`, {
+            withCredentials: true
+          });
+          setPatchMode(true);
+          const { content, title, comments, isPublic } = resp.data;
+          setPost({
+            content: content,
+            title: title,
+            comments: comments,
+            isPublic: isPublic
+          });
+          console.log(resp.data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    getPost();
+  }, []);
+
   useEffect(() => {
     setPost({ ...post, isPublic: isPublic });
   }, [isPublic, setPost]);
@@ -28,9 +56,15 @@ const AddPost = ({ history }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const resp = await axios.post(`/api/entries`, post, {
-        withCredentials: true
-      });
+      if (patchMode) {
+        const resp = await axios.patch(`/api/entries/${id}`, post, {
+          withCredentials: true
+        });
+      } else {
+        const resp = await axios.post(`/api/entries`, post, {
+          withCredentials: true
+        });
+      }
       history.push('/dashboard');
     } catch (error) {
       console.log(error);
@@ -49,6 +83,7 @@ const AddPost = ({ history }) => {
               name="public"
               id="custom-switch"
               label="Public"
+              checked={post?.isPublic}
             />
           </div>
 
@@ -57,7 +92,8 @@ const AddPost = ({ history }) => {
             as="input"
             name="title"
             aria-label="With textarea"
-            rows="10"
+            rows="15"
+            value={post?.title}
             required
           />
         </Form.Group>
@@ -68,6 +104,7 @@ const AddPost = ({ history }) => {
             name="content"
             aria-label="With textarea"
             rows="10"
+            value={post?.content}
             required
           />
         </Form.Group>

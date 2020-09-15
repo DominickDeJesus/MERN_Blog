@@ -21,7 +21,11 @@ const Entry = ({ entry, canEdit }) => {
       console.log(error);
     }
   };
-  const handleEdit = () => {};
+
+  const handleEdit = () => {
+    history.push(`/addPost/${entry._id}`);
+  };
+
   return (
     <Card bg="" className="my-3">
       <Card.Body>

@@ -25,6 +25,7 @@ const App = () => {
           <Route exact path="/reset-password" component={ResetPassword} />
           <Route exact path="/update-password" component={UpdatePassword} />
           <PrivateRoute exact path="/addpost" component={AddPost} />
+          <PrivateRoute exact path="/addpost/:id" component={AddPost} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </Switch>
