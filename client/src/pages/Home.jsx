@@ -10,7 +10,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getEntries = async () => {
       try {
-        const response = await axios.get('/api/entries');
+        const response = await axios.get('/api/public/entries');
         setEntries(response.data);
       } catch (error) {
         console.log(error);

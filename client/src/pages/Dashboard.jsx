@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import axios from 'axios';
+import Entry from '../components/Entry';
 
 const Dashboard = () => {
-  return <div></div>;
-};
+  const [entries, setEntries] = useState(null);
 
+  useEffect(() => {
+    const getEntries = async () => {
+      try {
+        const response = await axios.get('/api/entries', {
+          withCredentials: true
+        });
+        setEntries(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getEntries();
+  }, []);
+
+  return (
+    <>
+      <Container>
+        {entries?.map((post) => {
+          return <Entry key={post._id} entry={post} />;
+        })}
+      </Container>
+    </>
+  );
+};
 export default Dashboard;

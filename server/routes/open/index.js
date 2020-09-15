@@ -105,7 +105,7 @@ router.get('/api/password/:token', (req, res) => {
 // /entries?sortBy=createdAt:asc
 // /entries?sortBy=dueDate:desc
 // ***********************************************//
-router.get('/api/entries', async (req, res) => {
+router.get('/api/public/entries', async (req, res) => {
   try {
     const match = {},
       sort = {};
