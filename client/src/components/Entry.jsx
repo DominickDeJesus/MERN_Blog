@@ -8,7 +8,7 @@ const Entry = ({ entry }) => {
   const { currentUser } = useContext(AppContext);
 
   return (
-    <Card bg="">
+    <Card bg="" className="my-3">
       <Card.Body>
         <Card.Title>{entry.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{entry.owner}</Card.Subtitle>
@@ -21,7 +21,9 @@ const Entry = ({ entry }) => {
         >
           Comments
         </Button>
-        {showComments && <CommentSection comments={entry.comments} />}
+        {showComments && (
+          <CommentSection comments={entry.comments} id={entry._id} />
+        )}
       </Card.Body>
     </Card>
   );

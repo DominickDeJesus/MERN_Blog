@@ -1,25 +1,33 @@
 import React, { useContext } from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { InputGroup, FormControl, Button, Form } from 'react-bootstrap';
 import { AppContext } from '../context/AppContext';
 import { useState } from 'react';
 import axios from 'axios';
 import Comment from '../components/Comment';
 
-const CommentSection = ({ comments }) => {
+const CommentSection = ({ comments, id }) => {
   const { currentUser } = useContext(AppContext);
   const [commentPost, setCommentPost] = useState({});
+  const [currentComments, setCurrentComments] = useState(comments);
 
   const handleChange = (event) => {
-    setCommentPost({ comment: event.target.value });
+    setCommentPost({
+      ...commentPost,
+      name: currentUser.name ? currentUser.name : 'Anonymous',
+      content: event.target.value
+    });
   };
-  const handleSubmit = async () => {
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    form.reset();
     try {
-      setCommentPost({
-        ...commentPost,
-        name: currentUser ? currentUser : 'Anonymous'
-      });
-      const response = await axios.post('/api/CHANHETHIS', commentPost);
-      console.log(response);
+      const response = await axios.post(
+        `/api/public/entry/${id}/comment/`,
+        commentPost
+      );
+      setCurrentComments(response.data.comments);
     } catch (error) {
       console.log(error);
     }
@@ -27,20 +35,22 @@ const CommentSection = ({ comments }) => {
 
   return (
     <div>
-      {comments?.map((comment) => {
-        return <Comment key={comment._id} comment={comment} />;
+      {currentComments?.map((comment) => {
+        return <Comment key={comment?._id} comment={comment} />;
       })}
-      <InputGroup>
-        <FormControl
-          onChange={handleChange}
-          as="textarea"
-          name="content"
-          aria-label="With textarea"
-        />
-        <Button onClick={handleSubmit} variant="outline-secondary">
-          Post
-        </Button>
-      </InputGroup>
+      <Form onSubmit={handleSubmit}>
+        <InputGroup>
+          <FormControl
+            onChange={handleChange}
+            as="textarea"
+            name="content"
+            aria-label="With textarea"
+          />
+          <Button type="submit" variant="outline-secondary">
+            Post
+          </Button>
+        </InputGroup>
+      </Form>
     </div>
   );
 };

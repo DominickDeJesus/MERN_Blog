@@ -1,23 +1,10 @@
-import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import {
-  Navbar,
-  Dropdown,
-  Nav,
-  Form,
-  FormControl,
-  Button
-} from 'react-bootstrap';
-import NavDropdown from 'react-bootstrap/Dropdown';
+import React from 'react';
+import { Navbar, Dropdown } from 'react-bootstrap';
 import Logout from '../components/Logout';
 import { Link, useHistory } from 'react-router-dom';
 import { BsPerson } from 'react-icons/bs';
 
 const Navigation = () => {
-  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-
-  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
-
   const history = useHistory();
   return (
     <Navbar sticky="top" bg="white" expand="xlg">

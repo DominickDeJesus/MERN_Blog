@@ -177,13 +177,13 @@ router.patch('/api/entries/:id', async (req, res) => {
 // });
 
 // // ***********************************************//
-// // Create a milestone goalid
+// // Create a comment by Entry id
 // // ***********************************************//
 
-// router.post('/api/goal/:gid/milestone/', async (req, res) => {
+// router.post('/api/public/entry/:eid/comment/', async (req, res) => {
 //   try {
 //     const goal = await Goal.findOne({
-//       _id: req.params.gid,
+//       _id: req.params.eid,
 //       owner: req.user._id
 //     });
 //     if (!goal) return res.status(404).json({ error: 'goal not found' });

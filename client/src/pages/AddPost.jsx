@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { AppContext } from '../context/AppContext';
-import { Image, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import axios from 'axios';
 
 const AddPost = ({ history }) => {
-  const { currentReflection, currentGoal, setCurrentGoal } = useContext(
-    AppContext
-  );
+  const { currentReflection } = useContext(AppContext);
   const [isPublic, setIsPublic] = useState(false);
   const [post, setPost] = useState(currentReflection);
   const [image, setImage] = useState(currentReflection?.image);

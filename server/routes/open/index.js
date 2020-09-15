@@ -124,4 +124,22 @@ router.get('/api/public/entries', async (req, res) => {
   }
 });
 
+// ***********************************************//
+// Create a comment by Entry id
+// ***********************************************//
+
+router.post('/api/public/entry/:eid/comment/', async (req, res) => {
+  try {
+    const entry = await Entry.findOne({
+      _id: req.params.eid
+    });
+    if (!entry) return res.status(404).json({ error: 'entry not found' });
+    entry.comments.push(req.body);
+    await entry.save();
+    res.json(entry);
+  } catch (e) {
+    res.status(400).json({ error: e.toString() });
+  }
+});
+
 module.exports = router;
