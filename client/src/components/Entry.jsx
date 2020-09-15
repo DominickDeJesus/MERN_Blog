@@ -7,13 +7,13 @@ import axios from 'axios';
 
 const Entry = ({ entry, canEdit }) => {
   const [showComments, setShowComments] = useState(false);
-  const { currentUser, setReloadEntries } = useContext(AppContext);
-  const [currentEntry, setCurrentEntry] = useState(entry);
+  const { setReloadEntries } = useContext(AppContext);
+  const [currentEntry] = useState(entry);
   const history = useHistory();
 
   const handleDelete = async () => {
     try {
-      const resp = await axios.delete(`/api/entries/${entry._id}`, {
+      await axios.delete(`/api/entries/${entry._id}`, {
         withCredentials: true
       });
       setReloadEntries(true);
@@ -38,7 +38,12 @@ const Entry = ({ entry, canEdit }) => {
             </DropdownButton>
           )}
         </div>
-        <Card.Subtitle className="mb-2 text-muted">
+        <Card.Subtitle
+          className="mb-2 text-muted author"
+          onClick={() => {
+            history.push(`/dashboard/${entry.owner}`);
+          }}
+        >
           {currentEntry?.authorName}
         </Card.Subtitle>
         <Card.Text>{entry.content}</Card.Text>

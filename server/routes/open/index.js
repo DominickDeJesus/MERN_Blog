@@ -125,6 +125,22 @@ router.get('/api/public/entries', async (req, res) => {
 });
 
 // ***********************************************//
+// Get all entries
+// /entries?completed=true
+// /entries?limit=10&skip=10
+// /entries?sortBy=createdAt:asc
+// /entries?sortBy=dueDate:desc
+// ***********************************************//
+router.get('/api/public/entries/:uid', async (req, res) => {
+  try {
+    const entries = await Entry.find({ isPublic: true, owner: req.params.uid });
+    res.json(entries);
+  } catch (error) {
+    res.status(400).json({ error: error.toString() });
+  }
+});
+
+// ***********************************************//
 // Create a comment by Entry id
 // ***********************************************//
 

@@ -1,0 +1,7 @@
+.author {
+  cursor: pointer;
+}
+
+.author:hover {
+  color: black;
+}

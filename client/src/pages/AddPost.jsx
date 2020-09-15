@@ -28,9 +28,7 @@ const AddPost = ({ history }) => {
     const getPost = async () => {
       if (id) {
         try {
-          const resp = await axios.get(`/api/entries/${id}`, {
-            withCredentials: true
-          });
+          const resp = await axios.get(`/api/entries/${id}`);
           setPatchMode(true);
           const { content, title, comments, isPublic } = resp.data;
           setPost({
@@ -39,7 +37,6 @@ const AddPost = ({ history }) => {
             comments: comments,
             isPublic: isPublic
           });
-          console.log(resp.data);
         } catch (error) {
           console.log(error);
         }
@@ -47,7 +44,7 @@ const AddPost = ({ history }) => {
     };
 
     getPost();
-  }, []);
+  }, [setPost, setPatchMode, id]);
 
   useEffect(() => {
     setPost({ ...post, isPublic: isPublic });
@@ -57,11 +54,11 @@ const AddPost = ({ history }) => {
     event.preventDefault();
     try {
       if (patchMode) {
-        const resp = await axios.patch(`/api/entries/${id}`, post, {
+        await axios.patch(`/api/entries/${id}`, post, {
           withCredentials: true
         });
       } else {
-        const resp = await axios.post(`/api/entries`, post, {
+        await axios.post(`/api/entries`, post, {
           withCredentials: true
         });
       }
