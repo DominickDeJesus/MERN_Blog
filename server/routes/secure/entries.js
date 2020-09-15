@@ -15,6 +15,7 @@ router.post('/api/entries', async (req, res) => {
       title,
       comments,
       isPublic,
+      authorName: req.user.name,
       owner: req.user._id
     });
     await entry.save();

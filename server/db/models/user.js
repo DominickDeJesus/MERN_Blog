@@ -100,7 +100,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// Delete user tasks when a user is removed.
+// Delete user entry when a user is removed.
 userSchema.pre('remove', async function (next) {
   const user = this;
   await Entry.deleteMany({

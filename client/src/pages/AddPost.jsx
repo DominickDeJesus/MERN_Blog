@@ -27,40 +27,15 @@ const AddPost = ({ history }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(isPublic);
     try {
       const resp = await axios.post(`/api/entries`, post, {
         withCredentials: true
       });
-      console.log(resp);
-      console.log(post);
       history.push('/dashboard');
     } catch (error) {
       console.log(error);
     }
   };
-
-  //   const handleSave = (event) => {
-  //     const blogPost = new FormData();
-  //     preview && blogPost.append('image', image, image.name);
-  //     Object.keys(reflection).forEach((key) => {
-  //       if (reflection[key] !== currentReflection[key])
-  //         reflectionPost.append(key, reflection[key]);
-  //     });
-  //     axios
-  //       .patch(
-  //         `/api/goal/${currentGoal._id}/reflection/${currentReflection._id}`,
-  //         reflectionPost,
-  //         {
-  //           withCredentials: true
-  //         }
-  //       )
-  //       .then((response) => {
-  //         setCurrentGoal(response.data);
-  //       })
-  //       .catch((error) => console.log(error));
-  //     history.push('/milestone');
-  //   };
 
   return (
     <Container>

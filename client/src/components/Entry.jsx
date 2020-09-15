@@ -11,7 +11,9 @@ const Entry = ({ entry }) => {
     <Card bg="" className="my-3">
       <Card.Body>
         <Card.Title>{entry.title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{entry.owner}</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">
+          {entry.authorName}
+        </Card.Subtitle>
         <Card.Text>{entry.content}</Card.Text>
         <Button
           className="mb-3"
