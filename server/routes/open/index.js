@@ -117,7 +117,7 @@ router.get('/api/public/entries', async (req, res) => {
       const parts = req.query.sortBy.split(':');
       sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
     }
-    const entries = await Entry.find({ public: true });
+    const entries = await Entry.find({ isPublic: true });
     res.json(entries);
   } catch (error) {
     res.status(400).json({ error: error.toString() });

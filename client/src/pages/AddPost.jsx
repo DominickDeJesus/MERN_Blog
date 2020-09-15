@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { AppContext } from '../context/AppContext';
 import { Image, Button, Form, InputGroup, FormControl } from 'react-bootstrap';
@@ -23,8 +23,24 @@ const AddPost = ({ history }) => {
       setPost({ ...post, [event.target.name]: event.target.value });
     }
   };
+  useEffect(() => {
+    setPost({ ...post, isPublic: isPublic });
+  }, [isPublic, setPost]);
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(isPublic);
+    try {
+      const resp = await axios.post(`/api/entries`, post, {
+        withCredentials: true
+      });
+      console.log(resp);
+      console.log(post);
+      history.push('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //   const handleSave = (event) => {
   //     const blogPost = new FormData();

@@ -12,7 +12,7 @@ const entrySchema = new mongoose.Schema(
       required: true,
       trim: true
     },
-    public: {
+    isPublic: {
       type: Boolean,
       default: false
     },

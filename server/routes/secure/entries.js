@@ -8,13 +8,13 @@ const router = require('express').Router(),
 // Create a entry
 // ***********************************************//
 router.post('/api/entries', async (req, res) => {
-  const { content, title, comments, public } = req.body;
+  const { content, title, comments, isPublic } = req.body;
   try {
     const entry = new Entry({
       content,
       title,
       comments,
-      public,
+      isPublic,
       owner: req.user._id
     });
     await entry.save();
@@ -97,7 +97,7 @@ router.delete('/api/entries/:id', async (req, res) => {
 // ***********************************************//
 router.patch('/api/entries/:id', async (req, res) => {
   const updates = Object.keys(req.body);
-  const allowedUpdates = ['title', 'content', 'public', 'comments'];
+  const allowedUpdates = ['title', 'content', 'isPublic', 'comments'];
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
