@@ -118,7 +118,6 @@ router.get('/api/entries', async (req, res) => {
       sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
     }
     const entries = await Entry.find({ public: true });
-    console.log(entries);
     res.json(entries);
   } catch (error) {
     res.status(400).json({ error: error.toString() });

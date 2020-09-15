@@ -3,18 +3,22 @@ import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { AppContext } from '../context/AppContext';
 import { useState } from 'react';
 import axios from 'axios';
+import Comment from '../components/Comment';
 
 const CommentSection = ({ comments }) => {
   const { currentUser } = useContext(AppContext);
-  const [comment, setComment] = useState({});
+  const [commentPost, setCommentPost] = useState({});
 
   const handleChange = (event) => {
-    setComment({ comment: event.target.value });
+    setCommentPost({ comment: event.target.value });
   };
   const handleSubmit = async () => {
     try {
-      setComment({ ...comment, name: currentUser ? currentUser : 'Anonymous' });
-      const response = await axios.post('/api/CHANHETHIS', comment);
+      setCommentPost({
+        ...commentPost,
+        name: currentUser ? currentUser : 'Anonymous'
+      });
+      const response = await axios.post('/api/CHANHETHIS', commentPost);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -23,6 +27,9 @@ const CommentSection = ({ comments }) => {
 
   return (
     <div>
+      {comments?.map((comment) => {
+        return <Comment key={comment._id} comment={comment} />;
+      })}
       <InputGroup>
         <FormControl
           onChange={handleChange}
