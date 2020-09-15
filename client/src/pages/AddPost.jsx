@@ -10,7 +10,7 @@ const AddPost = ({ history }) => {
     AppContext
   );
   const [isPublic, setIsPublic] = useState(false);
-  const [reflection, setReflection] = useState(currentReflection);
+  const [post, setPost] = useState(currentReflection);
   const [image, setImage] = useState(currentReflection?.image);
   const [preview, setPreview] = useState(null);
 
@@ -18,34 +18,35 @@ const AddPost = ({ history }) => {
     if (event.target.name === 'image') {
       setPreview(URL.createObjectURL(event.target.files[0]));
       setImage(event.target.files[0]);
-      setReflection({ ...reflection, image: '' });
+      setPost({ ...post, image: '' });
     } else {
-      setReflection({ ...reflection, [event.target.name]: event.target.value });
+      setPost({ ...post, [event.target.name]: event.target.value });
     }
   };
 
   const handleSubmit = () => {};
-  const handleSave = (event) => {
-    const reflectionPost = new FormData();
-    preview && reflectionPost.append('image', image, image.name);
-    Object.keys(reflection).forEach((key) => {
-      if (reflection[key] !== currentReflection[key])
-        reflectionPost.append(key, reflection[key]);
-    });
-    axios
-      .patch(
-        `/api/goal/${currentGoal._id}/reflection/${currentReflection._id}`,
-        reflectionPost,
-        {
-          withCredentials: true
-        }
-      )
-      .then((response) => {
-        setCurrentGoal(response.data);
-      })
-      .catch((error) => console.log(error));
-    history.push('/milestone');
-  };
+
+  //   const handleSave = (event) => {
+  //     const blogPost = new FormData();
+  //     preview && blogPost.append('image', image, image.name);
+  //     Object.keys(reflection).forEach((key) => {
+  //       if (reflection[key] !== currentReflection[key])
+  //         reflectionPost.append(key, reflection[key]);
+  //     });
+  //     axios
+  //       .patch(
+  //         `/api/goal/${currentGoal._id}/reflection/${currentReflection._id}`,
+  //         reflectionPost,
+  //         {
+  //           withCredentials: true
+  //         }
+  //       )
+  //       .then((response) => {
+  //         setCurrentGoal(response.data);
+  //       })
+  //       .catch((error) => console.log(error));
+  //     history.push('/milestone');
+  //   };
 
   return (
     <Container>
@@ -56,6 +57,7 @@ const AddPost = ({ history }) => {
             <Form.Check
               onChange={() => setIsPublic(!isPublic)}
               type="switch"
+              name="public"
               id="custom-switch"
               label="Public"
             />
