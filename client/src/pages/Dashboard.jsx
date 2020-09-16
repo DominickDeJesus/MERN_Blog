@@ -54,9 +54,12 @@ const Dashboard = ({ history }) => {
             </Button>
           )}
         </div>
-        {entries?.map((post) => {
-          return <Entry key={post._id} entry={post} canEdit={!guest} />;
-        })}
+        {entries
+          ?.slice(0)
+          ?.reverse()
+          ?.map((post) => {
+            return <Entry key={post._id} entry={post} canEdit={!guest} />;
+          })}
       </Container>
     </>
   );

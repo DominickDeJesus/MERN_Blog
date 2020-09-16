@@ -35,9 +35,12 @@ const Home = ({ location }) => {
     <>
       <Container>
         <h2 className="py-4">Latest Posts</h2>
-        {filtered?.map((post) => {
-          return <Entry key={post._id} entry={post} canEdit={false} />;
-        })}
+        {filtered
+          ?.slice(0)
+          ?.reverse()
+          ?.map((post) => {
+            return <Entry key={post._id} entry={post} canEdit={false} />;
+          })}
       </Container>
     </>
   );
