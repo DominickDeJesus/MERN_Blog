@@ -5,3 +5,7 @@
 .author:hover {
   color: black;
 }
+
+.fullscreen {
+  height: 80vh;
+}

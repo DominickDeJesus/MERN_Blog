@@ -30,50 +30,40 @@ const Login = ({ history }) => {
   };
 
   return (
-    <Container>
-      <div className="login">
-        <div>
-          <h1>Login</h1>
-        </div>
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <Form.Label className="text">Email address</Form.Label>
-            <Form.Control
-              className="label"
-              type="email"
-              placeholder="Enter email"
-              name="email"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <Form.Label className="text">Password</Form.Label>
-            <Form.Control
-              className="label"
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <Link className="login-op" to="/reset-password">
-              Forgot Password?
-            </Link>
-            <Link className="login-op" to="/signup">
-              Need an Account? Sign up.
-            </Link>
-          </div>
-          <div>
-            <Form.Check type="checkbox" label="Remember Me" />
-          </div>
-          <div className="info-btn-flex">
-            <Button className="info-btn" type="submit">
-              Login
-            </Button>
-          </div>
-        </Form>
-      </div>
+    <Container className="d-flex flex-column justify-content-center align-items-center fullscreen">
+      <h1 className="py-3">Login</h1>
+      <Form className="w-50" onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label className="text">Email address</Form.Label>
+          <Form.Control
+            className="label"
+            type="email"
+            placeholder="Enter email"
+            name="email"
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label className="text">Password</Form.Label>
+          <Form.Control
+            className="label"
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group className="d-flex justify-content-around">
+          <Link to="/reset-password">Forgot Password?</Link>
+          <Link to="/signup">Need an Account?</Link>
+        </Form.Group>
+
+        <Form.Group className="d-flex justify-content-center">
+          <Button className="w-25" type="submit">
+            Login
+          </Button>
+        </Form.Group>
+      </Form>
     </Container>
   );
 };

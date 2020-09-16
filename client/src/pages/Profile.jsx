@@ -60,68 +60,46 @@ const Profile = ({ history }) => {
   };
 
   return (
-    <Container>
-      <div className="profile-page">
-        <div className="profile">
-          <div>
-            <div>
-              <div>
-                <h2>Your Profile</h2>
-                <p className="profile-text">
-                  Name: <span>{currentUser?.name}</span>
-                </p>
-                <p className="profile-text">
-                  Email: <span>{currentUser?.email}</span>
-                </p>
-              </div>
-            </div>
-            <div className="profile-items">
-              <div>
-                <div className="avatar-prev">
-                  <Image
-                    src={
-                      preview
-                        ? preview
-                        : currentUser?.avatar
-                        ? currentUser.avatar
-                        : require('../resources/images/default_avatar.png')
-                    }
-                    className="h-100 wa"
-                    alt="profilePic"
-                  />
-                </div>
-                <div>
-                  <form className="profile-btns" onSubmit={handleImage}>
-                    <input
-                      className="upload-avatar"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleChange}
-                    />
-                    <div className="profile-btn-flex">
-                      <Button
-                        variant="flat"
-                        className="profile-btn-save"
-                        type="submit"
-                      >
-                        Save Image
-                      </Button>
+    <Container className="d-flex justify-content-center flex-column align-items-center fullscreen">
+      <h2 className="pb-3">Your Profile</h2>
+      <p className="profile-text">
+        Name: <span>{currentUser?.name}</span>
+      </p>
+      <p className="profile-text">
+        Email: <span>{currentUser?.email}</span>
+      </p>
+      <Image
+        src={
+          preview
+            ? preview
+            : currentUser?.avatar
+            ? currentUser.avatar
+            : require('../resources/images/default_avatar.png')
+        }
+        style={{ height: '200px', width: '200px', overflow: 'hidden' }}
+        alt="profilePic"
+        roundedCircle
+      />
+      <form
+        className="d-flex flex-column justify-content-center align-items-center"
+        onSubmit={handleImage}
+      >
+        <input
+          className="p-3"
+          type="file"
+          accept="image/*"
+          onChange={handleChange}
+        />
+        <div className="d-flex justify-content-center">
+          <Button className="mx-3 " type="submit">
+            Save Image
+          </Button>
 
-                      <Button
-                        variant="flat"
-                        className="profile-btn-delete"
-                        onClick={handleDelete}
-                      >
-                        Delete Account
-                      </Button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Button className="mx-3 " onClick={handleDelete}>
+            Delete Account
+          </Button>
         </div>
-      </div>
+      </form>
     </Container>
   );
 };
