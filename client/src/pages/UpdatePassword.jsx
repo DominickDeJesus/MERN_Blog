@@ -28,39 +28,31 @@ const UpdatePassword = ({ history }) => {
       .catch((error) => console.log(error));
   };
   return (
-    <Container>
-      <div className="reset">
-        <div>
-          <h2>Update Password</h2>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label>New Password</Form.Label>
-              <Form.Control
-                type="password"
-                onChange={handleChange}
-                name="password"
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>
-                <span>Confirm Password</span>
-              </Form.Label>
-              <Form.Control
-                type="password"
-                onChange={handleChange}
-                name="confirmPassword"
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Button variant="flat" className="info-btn" type="submit">
-                <span>Update Password</span>
-              </Button>
-            </Form.Group>
-          </Form>
-        </div>
-      </div>
+    <Container className="d-flex flex-column justify-content-center align-items-center fullscreen">
+      <h2 className="p-4">Update Password</h2>
+      <Form className="w-25" onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>New Password</Form.Label>
+          <Form.Control
+            type="password"
+            onChange={handleChange}
+            name="password"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="w-100">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            onChange={handleChange}
+            name="confirmPassword"
+            required
+          />
+        </Form.Group>
+        <Form.Group className="d-flex justify-content-center">
+          <Button type="submit">Update Password</Button>
+        </Form.Group>
+      </Form>
     </Container>
   );
 };
