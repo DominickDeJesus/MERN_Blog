@@ -17,22 +17,20 @@ const ResetPassword = () => {
   };
 
   return (
-    <Container>
+    <Container className="d-flex flex-column justify-content-center align-items-center fullscreen">
       <div className="reset">
         <div>
           <h2>Reset Password</h2>
           <Form onSubmit={handleSubmit}>
             <Form.Group>
-              <Form.Label>
-                <span>Email address</span>
-              </Form.Label>
+              <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
                 onChange={(event) => setEmail(event.target.value)}
               />
             </Form.Group>
-            <Form.Group>
-              <Button variant="flat" className="info-btn" type="submit">
+            <Form.Group className="d-flex justify-content-center">
+              <Button className="info-btn" type="submit">
                 Send Email
               </Button>
             </Form.Group>

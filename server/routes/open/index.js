@@ -100,10 +100,6 @@ router.get('/api/password/:token', (req, res) => {
 
 // ***********************************************//
 // Get all entries
-// /entries?completed=true
-// /entries?limit=10&skip=10
-// /entries?sortBy=createdAt:asc
-// /entries?sortBy=dueDate:desc
 // ***********************************************//
 router.get('/api/public/entries', async (req, res) => {
   try {
@@ -125,11 +121,7 @@ router.get('/api/public/entries', async (req, res) => {
 });
 
 // ***********************************************//
-// Get all entries
-// /entries?completed=true
-// /entries?limit=10&skip=10
-// /entries?sortBy=createdAt:asc
-// /entries?sortBy=dueDate:desc
+// Get all public entries of user by id
 // ***********************************************//
 router.get('/api/public/entries/:uid', async (req, res) => {
   try {
@@ -144,7 +136,7 @@ router.get('/api/public/entries/:uid', async (req, res) => {
 // Create a comment by Entry id
 // ***********************************************//
 
-router.post('/api/public/entry/:eid/comment/', async (req, res) => {
+router.post('/api/public/entry/:eid/comment', async (req, res) => {
   try {
     const entry = await Entry.findOne({
       _id: req.params.eid
