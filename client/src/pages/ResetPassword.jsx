@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
-    axios
-      .get(`/api/password?email=${email}`)
-      .then((res) => {
-        form.reset();
-      })
-      .catch((error) => console.log(error));
+    try {
+      await axios.get(`/api/password?email=${email}`);
+      form.reset();
+      swal(
+        'Email Sent!',
+        `A link to reset your password was sent to ${email}.`,
+        'success'
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
