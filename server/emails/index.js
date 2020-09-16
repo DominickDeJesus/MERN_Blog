@@ -53,7 +53,7 @@ const forgotPasswordEmail = async (email, token) => {
       html: exampleHTMLEmail
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.toString());
   }
 };
 

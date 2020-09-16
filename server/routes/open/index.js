@@ -69,7 +69,7 @@ router.get('/api/password', async (req, res) => {
         expiresIn: '10m'
       }
     );
-    forgotPasswordEmail(email, token);
+    await forgotPasswordEmail(email, token);
     res.json({ message: 'reset password email sent' });
   } catch (error) {
     res.status(500).json({ error: error.toString() });
