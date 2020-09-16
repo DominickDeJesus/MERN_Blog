@@ -3,9 +3,21 @@ import { useState, useEffect } from 'react';
 import Entry from '../components/Entry';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
+import QueryString from 'query-string';
 
-const Dashboard = () => {
+const Home = ({ location }) => {
   const [entries, setEntries] = useState(null);
+  const [filtered, setFiltered] = useState(null);
+  const params = QueryString.parse(location.search);
+
+  useEffect(() => {
+    if (params.search) {
+      const filtered = entries?.filter((entry) => {
+        return entry.title.toLowerCase().includes(params.search.toLowerCase());
+      });
+      setFiltered(filtered);
+    } else setFiltered(entries);
+  }, [setEntries, setFiltered, entries, params.search]);
 
   useEffect(() => {
     const getEntries = async () => {
@@ -23,7 +35,7 @@ const Dashboard = () => {
     <>
       <Container>
         <h2 className="py-4">Latest Posts</h2>
-        {entries?.map((post) => {
+        {filtered?.map((post) => {
           return <Entry key={post._id} entry={post} canEdit={false} />;
         })}
       </Container>
@@ -31,4 +43,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;
