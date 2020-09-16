@@ -1,27 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Button, Form } from 'react-bootstrap';
-import { AppContext } from '../context/AppContext';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
 const AddPost = ({ history }) => {
-  const { currentReflection } = useContext(AppContext);
   const [isPublic, setIsPublic] = useState(false);
   const [post, setPost] = useState(null);
-  const [image, setImage] = useState(currentReflection?.image);
-  const [preview, setPreview] = useState(null);
   const { id } = useParams();
   const [patchMode, setPatchMode] = useState(false);
 
   const handleChange = (event) => {
-    if (event.target.name === 'image') {
-      setPreview(URL.createObjectURL(event.target.files[0]));
-      setImage(event.target.files[0]);
-      setPost({ ...post, image: '' });
-    } else {
-      setPost({ ...post, [event.target.name]: event.target.value });
-    }
+    setPost({ ...post, [event.target.name]: event.target.value });
   };
 
   useEffect(() => {
