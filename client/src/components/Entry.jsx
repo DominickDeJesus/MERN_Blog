@@ -4,18 +4,35 @@ import CommentSection from './CommentSection';
 import { AppContext } from '../context/AppContext';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const Entry = ({ entry, canEdit }) => {
   const [showComments, setShowComments] = useState(false);
   const { setReloadEntries } = useContext(AppContext);
   const [currentEntry] = useState(entry);
   const history = useHistory();
+
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/entries/${entry._id}`, {
-        withCredentials: true
+      const willDelete = await swal({
+        title: 'Are you sure?',
+        text: 'Once deleted, you will not be able to recover this account!',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
       });
-      setReloadEntries(true);
+
+      if (willDelete) {
+        await axios.delete(`/api/entries/${entry._id}`, {
+          withCredentials: true
+        });
+        setReloadEntries(true);
+        swal('Your account has been deleted!', {
+          icon: 'success'
+        });
+      } else {
+        swal('Your account has not been deleted!');
+      }
     } catch (error) {
       console.log(error);
     }
