@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import axios from 'axios';
 import Entry from '../components/Entry';
 import { AppContext } from '../context/AppContext';
 import { useParams } from 'react-router-dom';
 
-const Dashboard = () => {
+const Dashboard = ({ history }) => {
   const [entries, setEntries] = useState(null);
   const { reloadEntries, setReloadEntries, currentUser } = useContext(
     AppContext
@@ -40,9 +40,20 @@ const Dashboard = () => {
   return (
     <>
       <Container>
-        <h2 className="py-4">
-          {entries && entries[0]?.authorName + "'s Posts"}
-        </h2>
+        <div className="d-flex align-items-center">
+          <h2 className="py-4 mr-auto">
+            {entries && entries[0]?.authorName + "'s Posts"}
+          </h2>
+          {!guest && (
+            <Button
+              className="h-25"
+              variant="secondary"
+              onClick={() => history.push('/addpost')}
+            >
+              Create a Post
+            </Button>
+          )}
+        </div>
         {entries?.map((post) => {
           return <Entry key={post._id} entry={post} canEdit={!guest} />;
         })}

@@ -6,7 +6,11 @@ import axios from 'axios';
 
 const AddPost = ({ history }) => {
   const [isPublic, setIsPublic] = useState(false);
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState({
+    isPublic: isPublic,
+    title: '',
+    content: ''
+  });
   const { id } = useParams();
   const [patchMode, setPatchMode] = useState(false);
 
@@ -60,6 +64,7 @@ const AddPost = ({ history }) => {
 
   return (
     <Container>
+      <h2 className="pt-4 pb-3">{patchMode ? 'Edit' : 'Create'}</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <div className="d-flex">

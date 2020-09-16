@@ -10,7 +10,6 @@ const Entry = ({ entry, canEdit }) => {
   const { setReloadEntries } = useContext(AppContext);
   const [currentEntry] = useState(entry);
   const history = useHistory();
-
   const handleDelete = async () => {
     try {
       await axios.delete(`/api/entries/${entry._id}`, {
@@ -34,7 +33,7 @@ const Entry = ({ entry, canEdit }) => {
             {currentEntry?.title}
           </Card.Title>
           {canEdit && (
-            <DropdownButton variant="flat" title="">
+            <DropdownButton variant="" title="">
               <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
               <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
             </DropdownButton>
