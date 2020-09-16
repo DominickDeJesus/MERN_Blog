@@ -9,3 +9,11 @@
 .fullscreen {
   height: 80vh;
 }
+
+.btn-flat {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.btn-flat:hover {
+  color: rgba(255, 255, 255, 0.75) !important;
+}

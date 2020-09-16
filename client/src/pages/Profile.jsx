@@ -62,10 +62,10 @@ const Profile = ({ history }) => {
   return (
     <Container className="d-flex justify-content-center flex-column align-items-center fullscreen">
       <h2 className="pb-3">Your Profile</h2>
-      <p className="profile-text">
+      <p>
         Name: <span>{currentUser?.name}</span>
       </p>
-      <p className="profile-text">
+      <p>
         Email: <span>{currentUser?.email}</span>
       </p>
       <Image
