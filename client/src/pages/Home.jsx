@@ -22,6 +22,7 @@ const Dashboard = () => {
   return (
     <>
       <Container>
+        <h2 className="py-4">Latest Posts</h2>
         {entries?.map((post) => {
           return <Entry key={post._id} entry={post} canEdit={false} />;
         })}

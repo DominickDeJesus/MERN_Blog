@@ -4,6 +4,7 @@ import { AppContext } from '../context/AppContext';
 import { useState } from 'react';
 import axios from 'axios';
 import Comment from '../components/Comment';
+import moment from 'moment';
 
 const CommentSection = ({ comments, id }) => {
   const { currentUser } = useContext(AppContext);
@@ -13,7 +14,7 @@ const CommentSection = ({ comments, id }) => {
   const handleChange = (event) => {
     setCommentPost({
       ...commentPost,
-      name: currentUser.name ? currentUser.name : 'Anonymous',
+      name: currentUser?.name ? currentUser.name : 'Anonymous',
       content: event.target.value
     });
   };
@@ -23,10 +24,10 @@ const CommentSection = ({ comments, id }) => {
     const form = event.target;
     form.reset();
     try {
-      const response = await axios.post(
-        `/api/public/entry/${id}/comment/`,
-        commentPost
-      );
+      const response = await axios.post(`/api/public/entry/${id}/comment/`, {
+        ...commentPost,
+        lastUpdated: moment()
+      });
       setCurrentComments(response.data.comments);
     } catch (error) {
       console.log(error);

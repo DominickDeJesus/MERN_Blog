@@ -30,7 +30,9 @@ const Entry = ({ entry, canEdit }) => {
     <Card bg="" className="my-3">
       <Card.Body>
         <div className="d-flex">
-          <Card.Title className="mr-auto">{currentEntry?.title}</Card.Title>
+          <Card.Title className="mr-auto" style={{ fontSize: '2rem' }}>
+            {currentEntry?.title}
+          </Card.Title>
           {canEdit && (
             <DropdownButton variant="flat" title="">
               <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
@@ -62,6 +64,12 @@ const Entry = ({ entry, canEdit }) => {
           />
         )}
       </Card.Body>
+      <Card.Footer
+        style={{ fontSize: '.75rem' }}
+        className="text-muted text-right"
+      >
+        Created on: {entry?.createdAt}
+      </Card.Footer>
     </Card>
   );
 };

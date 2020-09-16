@@ -40,6 +40,9 @@ const Dashboard = () => {
   return (
     <>
       <Container>
+        <h2 className="py-4">
+          {entries && entries[0]?.authorName + "'s Posts"}
+        </h2>
         {entries?.map((post) => {
           return <Entry key={post._id} entry={post} canEdit={!guest} />;
         })}
